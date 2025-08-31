@@ -44,7 +44,7 @@
                             <div class="col-md-6">
                                 <input id="image" type="file" class="form-control @error('image') is-invalid @enderror" name="image">
                                 @if (isset($product->image))
-                                    <img src="{{isset($product->image) ? asset('uploads/product/'.$product->image) : asset('default.png') }}" height="100px" width="100px" alt="">
+                                    <img src="{{ (isset($product->image) && file_exists('uploads/product/'.$product->image)) ? asset('uploads/product/'.$product->image) : asset('default.png') }}" height="100px" width="100px" alt="">
                                     <input type="hidden" name="old_image" value="{{$product->image}}">
                                 @endif
                                 @error('image')

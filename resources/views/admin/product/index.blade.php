@@ -3,15 +3,24 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-6">
+            <form action="{{ route('products.import') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="file" name="file" required>
+                    <button class="btn btn-primary" type="submit">Import</button>
+            </form>
+        </div>
+
+        <div class="col-md-12">
             <a href="{{route('product.create')}}" class="btn btn-primary">Add Product</a>
+
             <div class="card mt-3">
                 <div class="card-header">Product List</div>
 
                 <div class="card-body">
-                    @if (session('status'))
+                    @if (session('success'))
                         <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+                            {{ session('success') }}
                         </div>
                     @endif
                     <table class="table table-bordered product-table">

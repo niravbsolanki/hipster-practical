@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\ProductExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
+use App\Imports\ProductImport;
 use App\Models\Product;
 use Illuminate\Http\Request;
-
+use Maatwebsite\Excel\Facades\Excel;
 class ProductController extends Controller
 {
     /**
@@ -87,9 +89,20 @@ class ProductController extends Controller
     {
       $product = Product::find($id);
       $product->delete();
+
       return response()->json([
         'status' => true,
         'message' => 'Product deleted successfully.'
       ]);
+    }
+
+    public function importProduct(Request $request){
+        
+        $this->validate($request,[
+            'file' => 'required|mimes:csv,xlsx,xls'
+        ]);
+            
+        Excel::import(new ProductImport, $request->file('file'));
+        return back()->with('success', 'Product import started in background! Please check later!');
     }
 }

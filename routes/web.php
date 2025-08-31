@@ -28,6 +28,9 @@ Route::prefix('admin')->group(function(){
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
         Route::post('/logout', [DashboardController::class, 'logout'])->name('admin.logout');
         Route::resource('product', ProductController::class);
+
+        Route::post('product/import', [ProductController::class,'importProduct'])->name('products.import');
+
     });
 });
 
