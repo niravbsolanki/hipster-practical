@@ -48,6 +48,8 @@ Route::prefix('customer')->group(function(){
     Route::middleware('customer.auth')->group(function(){
         Route::get('/dashboard', [CustomerDashboardController::class, 'index'])->name('customer.dashboard');
         Route::post('/logout', [CustomerDashboardController::class, 'logout'])->name('customer.logout');
+        Route::get('customer/order/{id}', [CustomerDashboardController::class, 'placeOreder'])->name('customer.place.order');
+        Route::get('search', [CustomerDashboardController::class, 'searchProduct'])->name('customer.search');
     });
 });
 

@@ -5,7 +5,6 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <form action="{{ route('products.import') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
                     <input type="file" name="file" required>
                     <button class="btn btn-primary" type="submit">Import</button>
             </form>
