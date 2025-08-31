@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\RegisterController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Customer\Auth\LoginController as CustomerAuthLoginController;
 use App\Http\Controllers\Customer\Auth\RegisterController as CustomerAuthRegisterController;
 use App\Http\Controllers\Customer\DashboardController as CustomerDashboardController;
@@ -26,6 +27,7 @@ Route::prefix('admin')->group(function(){
     Route::middleware('admin.auth')->group(function(){
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
         Route::post('/logout', [DashboardController::class, 'logout'])->name('admin.logout');
+        Route::resource('product', ProductController::class);
     });
 });
 
@@ -37,6 +39,7 @@ Route::prefix('customer')->group(function(){
         Route::post('/login', [CustomerAuthLoginController::class, 'loginPost'])->name('customer.login');
         Route::get('/register', [CustomerAuthRegisterController::class, 'register'])->name('customer.register');
         Route::post('/register', [CustomerAuthRegisterController::class, 'registerPost'])->name('customer.register');
+
     });
 
     Route::middleware('customer.auth')->group(function(){
