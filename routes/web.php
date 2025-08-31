@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\RegisterController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Customer\Auth\LoginController as CustomerAuthLoginController;
 use App\Http\Controllers\Customer\Auth\RegisterController as CustomerAuthRegisterController;
@@ -28,8 +29,9 @@ Route::prefix('admin')->group(function(){
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
         Route::post('/logout', [DashboardController::class, 'logout'])->name('admin.logout');
         Route::resource('product', ProductController::class);
-
         Route::post('product/import', [ProductController::class,'importProduct'])->name('products.import');
+        Route::get('order-list', [OrderController::class,'index'])->name('order.list');
+        Route::post('order-status', [OrderController::class,'orderStatus'])->name('order.status');
 
     });
 });

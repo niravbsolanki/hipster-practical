@@ -32,7 +32,7 @@
                             @endif
                         <div class="card-body">
                             <h5 class="card-title">{{ $product->name ?? ''}}</h5>
-                            <p class="card-text">Price : {{$product->price}} | Stock : {{$product->stock}}</p>
+                            <p class="card-text">{{$product->category}} | Price : {{$product->price}} <br> Stock : {{$product->stock}}</p>
                             <p class="card-text">{{$product->description}}</p>
                             
                             <a href="{{route('customer.place.order',$product->id)}}" class="btn btn-primary">Place Order</a>

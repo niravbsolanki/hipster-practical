@@ -6,6 +6,7 @@ use App\Exports\ProductExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Imports\ProductImport;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -105,4 +106,5 @@ class ProductController extends Controller
         Excel::import(new ProductImport, $request->file('file'));
         return back()->with('success', 'Product import started in background! Please check later!');
     }
+
 }

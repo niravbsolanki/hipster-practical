@@ -11,6 +11,7 @@
         </div>
 
         <div class="col-md-12">
+            <a href="{{route('admin.dashboard')}}" class="btn btn-primary">Dashboard</a>
             <a href="{{route('product.create')}}" class="btn btn-primary">Add Product</a>
 
             <div class="card mt-3">
