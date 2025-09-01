@@ -25,7 +25,7 @@
                         <tbody>
                         @if (count($orders) > 0)
                             @foreach ($orders as $order)
-                                <tr class="tr_{{$order}}">
+                                <tr>
                                     <td>
                                         {{$order->id}}
                                     </td>
@@ -35,7 +35,7 @@
                                     <td>
                                         {{$order->product->price}}
                                     </td>
-                                    <td class="status">
+                                    <td class="status_{{$order->id}}">
                                         {{$order->status}}
                                     </td>
                                 </tr>
@@ -62,9 +62,17 @@
 @push('script')
 <script type="text/javascript">
 
+  var socket = new WebSocket('ws://localhost:3000');
 
+   socket.addEventListener('open', () => {
+          console.log('Client is connected..');
+   });
+   
+   socket.addEventListener('message', (data) => {
+      const response = JSON.parse(data.data); 
+      $('.status_'+response.id).text(response.status);
+      console.log('Status Changend Successfully.');
+   });
 
-
- 
 </script>
 @endpush

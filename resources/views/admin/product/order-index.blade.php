@@ -50,6 +50,9 @@ var table = $('.order-table').DataTable({
   $(document).on('change','.status',function(e){
             const id = $(this).data('id');
             if(confirm('Are you sure want to change this?')){
+
+                socket.send(JSON.stringify({ status: $(this).val(), id: id}));
+
                 $.ajax({
                     url:"{{route('order.status')}}",
                     method:'POST',
@@ -60,12 +63,23 @@ var table = $('.order-table').DataTable({
                         status:$(this).val()
                     },
                     success:function(response){
+
+
                         table.ajax.reload(null);
                     }
             });
         }
    });
 
- 
+  var socket = new WebSocket('ws://localhost:3000');
+
+   socket.addEventListener('open', () => {
+          console.log('Client is connected..');
+   });
+   
+   socket.addEventListener('message', (data) => {
+     const getData = JSON.parse(data.data); 
+     console.log(getData);
+   });
 </script>
 @endpush
