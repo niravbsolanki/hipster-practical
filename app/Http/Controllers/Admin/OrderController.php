@@ -55,21 +55,23 @@ class OrderController extends Controller
 
     public function sendPushNotification($id)
     {
+        //this code worked  git not push allow fire base json file security resason\
+        
         try {
-            $fcmToken = Customer::find($id)->first()->f_token;
-            $path = storage_path(config('firebase.credentials.file'));
-            $factory = (new Factory)->withServiceAccount($path);
+            // $fcmToken = Customer::find($id)->first()->f_token;
+            // $path = storage_path(config('firebase.credentials.file'));
+            // $factory = (new Factory)->withServiceAccount($path);
 
-            $messaging = $factory->createMessaging();
+            // $messaging = $factory->createMessaging();
 
-            $message = [
-                'token' => $fcmToken,
-                'notification' => [
-                    'title' => 'Product Status Changed',
-                    'body' => 'Your product status has been updated!',
-                ],
-            ];
-            $messaging->send($message);
+            // $message = [
+            //     'token' => $fcmToken,
+            //     'notification' => [
+            //         'title' => 'Product Status Changed',
+            //         'body' => 'Your product status has been updated!',
+            //     ],
+            // ];
+            // $messaging->send($message);
         }catch(\Kreait\Firebase\Exception\Messaging\NotFound $e){
         
         }
