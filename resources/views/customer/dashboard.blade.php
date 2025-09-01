@@ -54,3 +54,18 @@
     </div>
 </div>
 @endsection
+@push('script')
+<script>
+   var socket = new WebSocket('ws://localhost:3000');
+   socket.addEventListener('open', () => {
+    
+    socket.send(JSON.stringify({
+        customer_id: "{{auth('customer')->id()}}",
+        status : 'online',
+        type : 'customer'
+    }));
+
+    console.log('customer is connected..');
+   });
+    </script>
+@endpush
