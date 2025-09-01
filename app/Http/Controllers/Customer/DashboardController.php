@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -45,4 +46,10 @@ class DashboardController extends Controller
         $data['orders'] = Order::where('customer_id',auth('customer')->id())->paginate(20);
         return view('customer.order',$data);
     }
+
+    public function saveToken(Request $request){
+        auth('customer')->user()->update(['f_token'=>$request->token]);
+        return response()->json(['token saved successfully.']);
+    }
+
 }

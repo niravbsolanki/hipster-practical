@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Kreait\Firebase\Factory;
 
 class OrderController extends Controller
 {
@@ -42,10 +45,35 @@ class OrderController extends Controller
         $order = Order::find($request->id);
         $order->fill(['status' => $request->status])->save();
 
+        $this->sendPushNotification($order->customer_id);
+
         return response()->json([
             'status' => true,
             'message' => 'status changed successfully.'
         ]);
+    }
+
+    public function sendPushNotification($id)
+    {
+        try {
+            $fcmToken = Customer::find($id)->first()->f_token;
+            $path = storage_path(config('firebase.credentials.file'));
+            $factory = (new Factory)->withServiceAccount($path);
+
+            $messaging = $factory->createMessaging();
+
+            $message = [
+                'token' => $fcmToken,
+                'notification' => [
+                    'title' => 'Product Status Changed',
+                    'body' => 'Your product status has been updated!',
+                ],
+            ];
+            $messaging->send($message);
+        }catch(\Kreait\Firebase\Exception\Messaging\NotFound $e){
+        
+        }
+
     }
 
 }

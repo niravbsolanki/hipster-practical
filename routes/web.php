@@ -53,6 +53,9 @@ Route::prefix('customer')->group(function(){
         Route::get('customer/order/{id}', [CustomerDashboardController::class, 'placeOreder'])->name('customer.place.order');
         Route::get('search', [CustomerDashboardController::class, 'searchProduct'])->name('customer.search');
         Route::get('my-order', [CustomerDashboardController::class, 'myOrder'])->name('customer.order');
+        Route::post('/save-token', [CustomerDashboardController::class, 'saveToken'])->name('customer.save-token');
+
+
     });
 });
 
