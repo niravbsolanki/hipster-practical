@@ -66,12 +66,21 @@
 
    socket.addEventListener('open', () => {
           console.log('Client is connected..');
+
+          socket.send(JSON.stringify({
+                customer_id: "{{auth('customer')->id()}}",
+                status : 'online',
+                type : 'customer'
+        }));
+
    });
    
    socket.addEventListener('message', (data) => {
       const response = JSON.parse(data.data); 
-      $('.status_'+response.id).text(response.status);
-      console.log('Status Changend Successfully.');
+      if(response.id){
+          $('.status_'+response.id).text(response.status);
+          console.log('Status Changend Successfully.');
+      }
    });
 
 </script>
