@@ -2,7 +2,11 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
+    <div class="d-flex justify-content-center">
+        <a class="btn btn-success" href="{{route('customer.order')}}">My Order</a>
+    </div>
+    
+    <div class="row mt-3">
         <form action="{{ route('customer.search') }}" method="GET">
         <input type="text" name="search" class="form-control" placeholder="Searching ..." required>
         <button class="btn btn-primary mt-3" type="submit">Search</button>               

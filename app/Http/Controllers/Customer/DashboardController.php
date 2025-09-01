@@ -40,4 +40,9 @@ class DashboardController extends Controller
 
           return view('customer.dashboard',$data);
     }
+
+    public function myOrder(){
+        $data['orders'] = Order::where('customer_id',auth('customer')->id())->paginate(20);
+        return view('customer.order',$data);
+    }
 }

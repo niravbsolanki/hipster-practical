@@ -52,6 +52,7 @@ Route::prefix('customer')->group(function(){
         Route::post('/logout', [CustomerDashboardController::class, 'logout'])->name('customer.logout');
         Route::get('customer/order/{id}', [CustomerDashboardController::class, 'placeOreder'])->name('customer.place.order');
         Route::get('search', [CustomerDashboardController::class, 'searchProduct'])->name('customer.search');
+        Route::get('my-order', [CustomerDashboardController::class, 'myOrder'])->name('customer.order');
     });
 });
 
